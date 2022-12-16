@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:updatenews/search/search.dart';
@@ -67,7 +68,7 @@ class _ScienceState extends State<Science> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40)
@@ -79,7 +80,6 @@ class _ScienceState extends State<Science> {
           title: Text('Science',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 30),)
 
       ),
-
       body:   Provider.of<Newsprovider>(context).Sciencedata.isEmpty?
       Center(
         child: CircularProgressIndicator(color: Colors.green,),
@@ -102,23 +102,26 @@ class _ScienceState extends State<Science> {
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context,index){return
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(color:click==true? Colors.green:Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.green),
+                        GestureDetector(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(color:Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green),
+                            ),
+                            child:Text('${Provider.of<Newsprovider>(context).Sciencedata[index]['source']['name']??''}'
+                              ,style: const TextStyle(color: Colors.green),) ,
                           ),
-                          width: 100,height: 100,
-                          child:Text('BBC NEWS',style: TextStyle(color: Colors.green),) ,
                         );
                       },
                       separatorBuilder: (context,index){
-                        return SizedBox(width: 5,);
+                        return const SizedBox(width: 5,);
                       },
-                      itemCount: 10),
+                      itemCount: Provider.of<Newsprovider>(context).Sciencedata.length),
                 ),
               ),
-            ),
+            ),//sources of news
             SizedBox(
               height: MediaQuery.of(context).size.height*.02,
             ),
@@ -165,7 +168,7 @@ class _ScienceState extends State<Science> {
                     return SizedBox(height: MediaQuery.of(context).size.height*.07,);
                   },
                   itemCount: Provider.of<Newsprovider>(context).Sciencedata.length),
-            ),
+            ),//title of news
           ],
         ),
       ),

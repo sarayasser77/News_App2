@@ -66,7 +66,7 @@ class _SearchState extends State<Search> {
                                 margin: EdgeInsets.symmetric(horizontal: 5),
                                 child: FadeInImage.assetNetwork(
                                   height: 100,
-                                  placeholder: 'images/placehordergif.mp4',
+                                  placeholder: 'images/placehorder2.jpg',
                                   image:
                                   Provider.of<SearchProvider>(context)
                                       .quotes[index]

@@ -27,9 +27,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       body: Center(
-        child: Icon(Icons.fiber_new_sharp,size: MediaQuery.of(context).size.height*.4,color: Colors.white,),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('images/splash.png',height: MediaQuery.of(context).size.height*.4,),
+            SizedBox(height: MediaQuery.of(context).size.height*.1,),
+            CircularProgressIndicator(
+              color: Colors.green,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height*.3,),
+            Container(
+                alignment: Alignment.bottomCenter,
+                child: Text('Sara Yasser',style: TextStyle(color: Colors.green,fontSize: 25),))
+          ],
+        )
       ),
     );
   }

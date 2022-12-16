@@ -41,9 +41,7 @@ class Newsdetails extends StatelessWidget {
                   ),
                    const SizedBox(height: 20,),
                    Text(content,
-
-
-                     style: const TextStyle(color: Colors.black,fontSize: 30,fontWeight: FontWeight.w400),),
+                     style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.w300)),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.end,
                      children: [

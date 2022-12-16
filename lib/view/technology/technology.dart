@@ -102,14 +102,17 @@ class _technologyState extends State<technology> {
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context,index){return
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(color:click==true? Colors.green:Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.green),
+                        GestureDetector(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(color:Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green),
+                            ),
+                            child:Text('${Provider.of<Newsprovider>(context).technologydata[index]['source']['name']??''}'
+                              ,style: const TextStyle(color: Colors.green),) ,
                           ),
-                          width: 100,height: 100,
-                          child:Text('BBC NEWS',style: TextStyle(color: Colors.green),) ,
                         );
                       },
                       separatorBuilder: (context,index){

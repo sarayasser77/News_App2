@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:updatenews/providers/ThemeProvider.dart';
+import 'package:updatenews/view/change_theme.dart';
+import 'package:updatenews/view/setting/setting.dart';
 import '../providers/newsprovider.dart';
 import '../view/Business/business.dart';
 import '../view/Science/science.dart';
@@ -15,165 +18,263 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-List images=[
-  'images/sports.jpg',
-  'images/politics.jpg',
-  'images/health.jpg',
-  'images/business.jpg',
-  'images/environment.jpg',
-  'images/Science.jpg',
-];
+  List images = [
+    'images/sports.jpg',
+    'images/politics.jpg',
+    'images/health.jpg',
+    'images/business.jpg',
+    'images/environment.jpg',
+    'images/Science.jpg',
+  ];
 
-List names=[
-  'Sports','technology','Health','Business','Entertainment','Science',
-];
-@override
-initState() {
-  super.initState();
-  Future.delayed(Duration.zero, () async {
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'sports', index: null);
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'technology', index: null);
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'health', index: null);
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'business', index: null);
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'entertainment', index: null);
-    Provider.of<Newsprovider>(context, listen: false)
-        .getData(CategoryName: 'science', index: null);
+  List names = [
+    'Sports',
+    'technology',
+    'Health',
+    'Business',
+    'Entertainment',
+    'Science',
+  ];
+  bool ison = false;
 
-  });
-
-}
+  @override
+  initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'sports',
+        index: null,
+      );
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'technology',
+        index: null,
+      );
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'health',
+        index: null,
+      );
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'business',
+        index: null,
+      );
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'entertainment',
+        index: null,
+      );
+      Provider.of<Newsprovider>(context, listen: false).getData(
+        CategoryName: 'science',
+        index: null,
+      );
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40)
-              ),
-              color: Colors.green
+                  bottomRight: Radius.circular(40)),
+              color: Colors.green),
+        ),
+        toolbarHeight: MediaQuery.of(context).size.height * .13,
+        title: Text(
+          'News App',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: MediaQuery.of(context).size.height * .06,
+            fontWeight: FontWeight.w900,
           ),
         ),
-        toolbarHeight: MediaQuery.of(context).size.height*.13,
-        title: Text('News App',style: TextStyle(color: Colors.white,fontSize: MediaQuery.of(context).size.height*.06,
-          fontWeight: FontWeight.w900,),)
-
+        actions: [
+          ChangeTheme(),
+        ],
       ),
       drawer: Drawer(
         backgroundColor: Colors.white,
-        width: MediaQuery.of(context).size.width*.75,
+        width: MediaQuery.of(context).size.width * .75,
         child: Column(
-  children: [
-    Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height*.25,
-      decoration: BoxDecoration(color: Colors.green.shade500),
-      child: Text('NewsApp!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900,
-          fontSize: MediaQuery.of(context).size.height*.05),),
-    ),
-    SizedBox(height: 20,),
-    Column(
-      children: [
-        Row(
           children: [
-            IconButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (ctx){return home();}));
-            }, icon:Icon(Icons.view_list_sharp,size: MediaQuery.of(context).size.height*.04,)),
-            SizedBox(width: 30,),
-            Text('Categories',style: TextStyle(color: Colors.black,fontSize: MediaQuery.of(context).size.height*.038 ),)
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * .25,
+              decoration: BoxDecoration(color: Colors.green.shade500),
+              child: Text(
+                'NewsApp!',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: MediaQuery.of(context).size.height * .05),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (ctx) {
+                            return home();
+                          }));
+                        },
+                        icon: Icon(
+                          Icons.view_list_sharp,
+                          size: MediaQuery.of(context).size.height * .04,
+                          color: Colors.black,
+                        )),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      'Categories',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: MediaQuery.of(context).size.height * .038),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                            return Setting();
+                          }));
+                        },
+                        icon: Icon(
+                          Icons.settings,
+                          size: MediaQuery.of(context).size.height * .04,
+                          color: Colors.black,
+                        )),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      'Setting',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: MediaQuery.of(context).size.height * .038),
+                    )
+                  ],
+                ),
+              ],
+            )
           ],
         ),
-        SizedBox(height: 10,),
-        Row(
-          children: [
-            IconButton(onPressed: (){
-
-            }, icon:Icon(Icons.settings,size: MediaQuery.of(context).size.height*.04,)),
-            SizedBox(width: 30,),
-            Text('Setting',style: TextStyle(color: Colors.black,fontSize: MediaQuery.of(context).size.height*.038 ),)
-          ],
-        ),
-      ],
-    )
-  ],
-),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child:
-        Column(
+        child: Column(
           children: [
-            Text('Pick Your category of interest',style: TextStyle(color: Colors.grey.shade600,fontSize: 25,fontWeight: FontWeight.w700),),
-            SizedBox(height: 20,),
+            Text(
+              'Pick Your category of interest',
+              style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Expanded(
               child: GridView.builder(
-
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 20,mainAxisSpacing: 20),
-                itemBuilder: (context,index){
-
-                  return    GestureDetector(
-                    onTap: (){
-Navigator.push(context, MaterialPageRoute(builder: (ctx){ return
-  index==0? Sports():index==1?technology():index==2?Health():index==3?Business():index==4?entertainment():Science();
-
-}));
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return index == 0
+                            ? Sports()
+                            : index == 1
+                                ? technology()
+                                : index == 2
+                                    ? Health()
+                                    : index == 3
+                                        ? Business()
+                                        : index == 4
+                                            ? entertainment()
+                                            : Science();
+                      }));
                     },
                     child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: index==0||index==2||index==4? const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(0),
-                        ): const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(0)
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: index == 0 || index == 2 || index == 4
+                              ? const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(0),
+                                )
+                              : const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(0)),
+                          color: index == 0
+                              ? Colors.red.shade800
+                              : index == 1
+                                  ? Colors.blue.shade900
+                                  : index == 2
+                                      ? Colors.pink
+                                      : index == 3
+                                          ? Colors.brown.shade500
+                                          : index == 4
+                                              ? Colors.blue
+                                              : Colors.yellow.shade600,
                         ),
-
-                        color: index==0?Colors.red.shade800:index==1?Colors.blue.shade900:index==2?Colors.pink
-                            :index==3?Colors.brown.shade500:index==4?Colors.blue:Colors.yellow.shade600,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset('${images[index]}',fit: BoxFit.cover,height: 100,),
-                            SizedBox(height: 5,),
-                            Expanded(
-                                child: Text('${names[index]}',style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.w600),))
-                          ],
-                        ),
-                      )
-                    ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                '${images[index]}',
+                                fit: BoxFit.cover,
+                                height: 100,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Expanded(
+                                  child: Text(
+                                '${names[index]}',
+                                style: Theme.of(context).textTheme.displayLarge
+                                // TextStyle(
+                                //     color: Colors.white,
+                                //     fontSize: 25,
+                                //     fontWeight: FontWeight.w600),
+                              ))
+                            ],
+                          ),
+                        )),
                   );
-
                 },
                 itemCount: 6,
               ),
             ),
           ],
         ),
-
-        ),
-      );
-
+      ),
+    );
   }
 }
 //
